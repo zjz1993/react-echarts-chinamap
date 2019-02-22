@@ -1,0 +1,51 @@
+.echartsMapWrapper{
+  position: relative;
+  width: 400px;
+  height:335px;
+  .echartsWrapper{
+    width: 400px;
+    height:300px;
+  }
+  .toast{
+    width: 124px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: rgba(58,58,58,.9);
+    line-height: 1.5;
+    padding: 9px 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .goback{
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    white-space: nowrap;
+    line-height: 35px;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    position: relative;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fff;
+    height: 35px;
+    color: #293f52;
+    background-image: linear-gradient(-225deg, #00d3f1 0, #12b3ff 100%);
+    border: none;
+    border-radius: 0;
+    padding: 0 30px;
+    font-weight: normal;
+    &:hover{
+      color: #293f52;
+      background-image: linear-gradient(-225deg, #00d3f1 0, #12b3ff 100%);
+      box-shadow: 0 0 15px 0 rgba(0, 193, 220, 0.37);
+    }
+  }
+}

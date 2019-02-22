@@ -1,12 +1,19 @@
 import React, { Component } from 'react'
+import './index.css';
 
-import ExampleComponent from 'react-echarts-chinamap'
+import ChinaMap from 'react-echarts-chinamap'
 
 export default class App extends Component {
+  handle = (data) => {
+    console.log(data);
+  }
   render () {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <ChinaMap
+          onChange={this.handle}
+          wrapperClassName="test"
+        />
       </div>
     )
   }
