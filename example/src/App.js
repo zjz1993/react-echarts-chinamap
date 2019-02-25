@@ -11,6 +11,7 @@ export default class App extends Component {
     return (
       <div>
         <ChinaMap
+          style={{backgroundColor: 'grey'}}
           onChange={this.handle}
           wrapperClassName="test"
         />
