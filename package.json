@@ -1,7 +1,8 @@
 {
   "name": "react-echarts-chinamap",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
+  "private": false,
   "author": "zjz1993",
   "license": "MIT",
   "repository": "zjz1993/react-echarts-chinamap",
