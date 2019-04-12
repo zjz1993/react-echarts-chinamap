@@ -5,19 +5,21 @@ import echarts from 'echarts'
 import PropTypes from 'prop-types'
 
 import styles from './styles.less'
-const requestPrefix = 'http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/children';
+const requestPrefix = 'https://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/children';
 
 export default class ChinaMap extends Component {
   static propTypes = {
     onChange: PropTypes.func, // 点击地图区域时的回调函数
     extraOption: PropTypes.object,
     style: PropTypes.object,
+    defaultSelectedAreaName: PropTypes.string,
     wrapperClassName: PropTypes.string,
     echartsClassName: PropTypes.string,
     showCallbackBtn: PropTypes.bool,
     showTips: PropTypes.bool
   }
   static defaultProps = {
+    defaultSelectedAreaName: '',
     onChange: () => {},
     extraOption: {},
     style: {},
@@ -49,6 +51,7 @@ export default class ChinaMap extends Component {
         zoom: 1.2,
         data: data.features.map((item) => {
           return {
+            selected: item.properties.name === this.props.defaultSelectedAreaName,
             name: item.properties.name,
             id: item.properties.id || item.properties.adcode,
             lastLevel: item.properties.childrenNum === 0
@@ -68,7 +71,7 @@ export default class ChinaMap extends Component {
         return data.text();
       }).then((res) => {
         const data = JSON.parse(res);
-        this.createMapOption(data, '1');
+        this.createMapOption(data, 'china');
       });
     } else {
       window.fetch(`${requestPrefix}/${id}.json`).then((data) => {
@@ -80,23 +83,25 @@ export default class ChinaMap extends Component {
     }
   };
   clickMap = (params) => {
-    const {data: {name, id, lastLevel}} = params;
     // lastLevel 为true 说明是最后一级了
-    if (!lastLevel) {
-      this.getData(id);
-      const len = this.state.clickItemName.length;
-      if (len < 2) {
-        this.state.clickItemName.push(name);
+    if (params && params.data) {
+      const {data: {name, id, lastLevel}} = params;
+      if (!lastLevel) {
+        this.getData(id);
+        const len = this.state.clickItemName.length;
+        if (len < 2) {
+          this.state.clickItemName.push(name);
+        } else {
+          this.state.clickItemName[1] = name;
+        }
+        this.props.onChange(this.state.clickItemName);
       } else {
-        this.state.clickItemName[1] = name;
+        this.setState({toastVisible: true}, () => {
+          setTimeout(() => {
+            this.setState({toastVisible: false});
+          }, 1000);
+        });
       }
-      this.props.onChange(this.state.clickItemName);
-    } else {
-      this.setState({toastVisible: true}, () => {
-        setTimeout(() => {
-          this.setState({toastVisible: false});
-        }, 1000);
-      });
     }
   };
   goBack = () => {

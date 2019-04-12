@@ -43,7 +43,7 @@ class Example extends Component {
 |echartsClassName|自定义的加载echarts组件上的样式名称|String|-|
 |showCallbackBtn|是否显示返回按钮|Boolean|true|
 |showTips|是否在点击到最后一次地区时显示提示语|Boolean|true|
-
+|defaultSelectedAreaName|默认选中高亮的区域的名称|string|''|
 ## License
 
 MIT © [zjz1993](https://github.com/zjz1993)

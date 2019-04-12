@@ -14,6 +14,7 @@ export default class App extends Component {
           style={{backgroundColor: 'grey'}}
           onChange={this.handle}
           wrapperClassName="test"
+          defaultSelectedAreaName="江苏省"
         />
       </div>
     )
