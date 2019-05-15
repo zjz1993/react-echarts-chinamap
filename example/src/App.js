@@ -13,8 +13,9 @@ export default class App extends Component {
         <ChinaMap
           style={{backgroundColor: 'grey'}}
           onChange={this.handle}
-          wrapperClassName="test"
-          defaultSelectedAreaName="江苏省"
+          wrapperClassName='test'
+          defaultSelectedAreaName='江苏省'
+          isShowIsland={false}
         />
       </div>
     )

@@ -16,7 +16,8 @@ export default class ChinaMap extends Component {
     wrapperClassName: PropTypes.string,
     echartsClassName: PropTypes.string,
     showCallbackBtn: PropTypes.bool,
-    showTips: PropTypes.bool
+    showTips: PropTypes.bool,
+    isShowIsland: PropTypes.bool
   }
   static defaultProps = {
     defaultSelectedAreaName: '',
@@ -26,7 +27,8 @@ export default class ChinaMap extends Component {
     wrapperClassName: '',
     echartsClassName: '',
     showCallbackBtn: true,
-    showTips: true
+    showTips: true,
+    isShowIsland: true
   }
   constructor(props) {
     super(props)
@@ -61,18 +63,29 @@ export default class ChinaMap extends Component {
     };
     const mapObject = Object.assign(defaultMapObject, this.props.extraOption);
     echarts.registerMap(clickMapId, data);
-    this.state.clickItemArray.push(mapObject);
+    this.state.clickItemArray.push(mapObject)
     this.setState({mapData: data, clickId: clickMapId, mapObject});
   }
   getData = (id) => {
     // 没id，说明是初始化中国地图
     if (!id) {
-      window.fetch(`${requestPrefix}/100000.json`).then((data) => {
-        return data.text();
-      }).then((res) => {
-        const data = JSON.parse(res);
-        this.createMapOption(data, 'china');
-      });
+      if (this.props.isShowIsland) {
+        window.fetch(`${requestPrefix}/100000.json`).then((data) => {
+          return data.text();
+        }).then((res) => {
+          const data = JSON.parse(res);
+          // 显示南海岛屿及轮廓线
+          this.createMapOption(data, 'china');
+        });
+      } else {
+        window.fetch('./noIslandJson.json').then((data) => {
+          return data.json();
+        }).then((res) => {
+          // 不显示南海岛屿及轮廓线
+          console.log(res)
+          this.createMapOption(res, '1');
+        });
+      }
     } else {
       window.fetch(`${requestPrefix}/${id}.json`).then((data) => {
         return data.text();
